@@ -25,5 +25,14 @@ public class SeleniumParser {
         driver.get("https://www.vk.com/id10387980");
 
         //Тут перебирайте все айдишники
+        for(int i = 1000; i < 10000; i++){
+            try {
+                driver.get("https://www.vk.com/id" + i);
+                Thread.sleep(1000);
+                System.out.println(driver.findElement(By.className("page_name")).getText());
+            } catch (Exception e){
+
+            }
+        }
     }
 }
