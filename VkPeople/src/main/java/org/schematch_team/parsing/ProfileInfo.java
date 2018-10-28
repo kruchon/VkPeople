@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class ProfileInfo {
     private String id;
     private String name;
+    private String status;
     private String familyStatus;
-    private String mainEducation;
     private String site;
     private String birthDate;
     private String city;
@@ -19,7 +19,9 @@ public class ProfileInfo {
     private ArrayList<String> workplace;
     private ArrayList<String> institutes;
     private ArrayList<String> faculties;
-    private ArrayList<String> intituteDepartments;
+    private ArrayList<String> instituteDepartments;
+    private ArrayList<String> instituteForm;
+    private ArrayList<String> instituteStatus;
     private ArrayList<String> schools;
     private String politicPreferences;
     private String worldView;
@@ -35,18 +37,20 @@ public class ProfileInfo {
     private ArrayList<String> favouriteShows;
     private ArrayList<String> favouriteBooks;
     private ArrayList<String> favouriteGames;
+    private String mobilePhone;
+    private String secondPhone;
+    private String skype;
+    private String instagram;
+    private String twitter;
+    private String facebook;
+    private ArrayList<String> militaryUnit;
 
-    public ProfileInfo() {
-        this.id = null;
-        this.name = null;
-        this.familyStatus = null;
-        this.mainEducation = null;
-        this.site = null;
-        this.birthDate = null;
-        this.city = null;
-        this.friends = null;
-        this.groups = null;
-        this.pages = null;
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getId() {
@@ -71,14 +75,6 @@ public class ProfileInfo {
 
     public void setFamilyStatus(String familyStatus) {
         this.familyStatus = familyStatus;
-    }
-
-    public String getMainEducation() {
-        return mainEducation;
-    }
-
-    public void setMainEducation(String mainEducation) {
-        this.mainEducation = mainEducation;
     }
 
     public String getSite() {
@@ -129,13 +125,6 @@ public class ProfileInfo {
         this.pages = pages;
     }
 
-    @Override public String toString() {
-        return "ProfileInfo{" + "id='" + id + '\'' + ", name='" + name + '\'' + ", familyStatus='"
-                + familyStatus + '\'' + ", mainEducation='" + mainEducation + '\'' + ", site='"
-                + site + '\'' + ", birthDate='" + birthDate + '\'' + ", city='" + city + '\''
-                + ", friends=" + friends + ", groups=" + groups + ", pages=" + pages + '}';
-    }
-
     public void setHomeCity(String homeCity) {
         this.homeCity = homeCity;
     }
@@ -184,12 +173,12 @@ public class ProfileInfo {
         this.faculties = faculties;
     }
 
-    public ArrayList<String> getIntituteDepartments() {
-        return intituteDepartments;
+    public ArrayList<String> getInstituteDepartments() {
+        return instituteDepartments;
     }
 
-    public void setIntituteDepartments(ArrayList<String> intituteDepartments) {
-        this.intituteDepartments = intituteDepartments;
+    public void setInstituteDepartments(ArrayList<String> instituteDepartments) {
+        this.instituteDepartments = instituteDepartments;
     }
 
     public void setSchools(ArrayList<String> schools) {
@@ -310,5 +299,100 @@ public class ProfileInfo {
 
     public ArrayList<String> getFavouriteGames() {
         return favouriteGames;
+    }
+
+    public ArrayList<String> getInstituteForm() {
+        return instituteForm;
+    }
+
+    public void setInstituteForm(ArrayList<String> intituteForm) {
+        this.instituteForm = intituteForm;
+    }
+
+    public ArrayList<String> getInstituteStatus() {
+        return instituteStatus;
+    }
+
+    public void setInstituteStatus(ArrayList<String> intituteStatus) {
+        this.instituteStatus = intituteStatus;
+    }
+
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+    }
+
+    public String getSecondPhone() {
+        return secondPhone;
+    }
+
+    public void setSecondPhone(String secondPhone) {
+        this.secondPhone = secondPhone;
+    }
+
+    public String getSkype() {
+        return skype;
+    }
+
+    public void setSkype(String skype) {
+        this.skype = skype;
+    }
+
+    public String getInstagram() {
+        return instagram;
+    }
+
+    public void setInstagram(String instagram) {
+        this.instagram = instagram;
+    }
+
+    public String getTwitter() {
+        return twitter;
+    }
+
+    public void setTwitter(String twitter) {
+        this.twitter = twitter;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
+    }
+
+    public ArrayList<String> getMilitaryUnit() {
+        return militaryUnit;
+    }
+
+    public void setMilitaryUnit(ArrayList<String> militaryUnit) {
+        this.militaryUnit = militaryUnit;
+    }
+
+    @Override public String toString() {
+        return "ProfileInfo{" + "id='" + id + '\'' + ", name='" + name + '\'' + ", status='"
+                + status + '\'' + ", familyStatus='" + familyStatus + '\'' + ", site='" + site
+                + '\'' + ", birthDate='" + birthDate + '\'' + ", city='" + city + '\''
+                + ", friends=" + friends + ", groups=" + groups + ", pages=" + pages
+                + ", homeCity='" + homeCity + '\'' + ", brothersSisters=" + brothersSisters
+                + ", grandPaAndMa=" + grandPaAndMa + ", workplace=" + workplace + ", institutes="
+                + institutes + ", faculties=" + faculties + ", instituteDepartments="
+                + instituteDepartments + ", instituteForm=" + instituteForm + ", instituteStatus="
+                + instituteStatus + ", schools=" + schools + ", politicPreferences='"
+                + politicPreferences + '\'' + ", worldView='" + worldView + '\'' + ", mainInLife='"
+                + mainInLife + '\'' + ", mainInPeople='" + mainInPeople + '\''
+                + ", relationToSmoke='" + relationToSmoke + '\'' + ", relationToDrink='"
+                + relationToDrink + '\'' + ", inspire='" + inspire + '\'' + ", activities="
+                + activities + ", interests=" + interests + ", favouriteMusic=" + favouriteMusic
+                + ", favouriteFilms=" + favouriteFilms + ", favouriteShows=" + favouriteShows
+                + ", favouriteBooks=" + favouriteBooks + ", favouriteGames=" + favouriteGames
+                + ", mobilePhone='" + mobilePhone + '\'' + ", secondPhone='" + secondPhone + '\''
+                + ", skype='" + skype + '\'' + ", instagram='" + instagram + '\'' + ", twitter='"
+                + twitter + '\'' + ", facebook='" + facebook + '\'' + ", militaryUnit="
+                + militaryUnit + '}';
     }
 }

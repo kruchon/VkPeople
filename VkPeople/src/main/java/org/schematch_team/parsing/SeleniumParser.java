@@ -20,14 +20,14 @@ public class SeleniumParser {
     public SeleniumParser() {
         //проставьте путь до selenium driver
         System.setProperty("webdriver.chrome.driver",
-                "C:\\111\\chromedriver.exe");
+                "/Users/vitalijmonastyrev/Проекты/VkPeople/chromedriver");
         driver = new ChromeDriver();
     }
 
     void parse() {
         driver.get("https://www.vk.com");
-        driver.findElement(By.id("index_email")).sendKeys("ЛОГИН"); //логин и пароль проставить
-        driver.findElement(By.id("index_pass")).sendKeys("ДА БЛИН ДА ТУТ НЕ ПАРОЛЬ ТУТ ПРОСТО БУКВЫ");
+        driver.findElement(By.id("index_email")).sendKeys("+77 (478) 422-345"); //логин и пароль проставить
+        driver.findElement(By.id("index_pass")).sendKeys("hybv7rh845hg5h87hs'");
         driver.findElement(By.id("index_login_button")).click();
 
         //Тут перебирайте все айдишники
@@ -45,6 +45,12 @@ public class SeleniumParser {
                 profileInfo.setName(name);
 
                 try {
+                    profileInfo.setStatus(driver.findElement(By.className("my_current_info")).getText());
+                } catch (Exception e) {
+
+                }
+
+                try {
                     driver.findElement(By.className("profile_more_info_link")).click();
                 } catch (Exception e) {
 
@@ -56,22 +62,8 @@ public class SeleniumParser {
 
                 }
 
-                Collection<WebElement> infoContainers = driver.findElements(By.className("profile_info"));
-                for (WebElement infoContainer : infoContainers) {
-                    parseInfoContainer(infoContainer, profileInfo);
-                }
-                int x = 0;
-               /* try {
-                    String fullProhileInfo = driver.findElement(By.className("profile_info_full")).getText();
-                    String[] lines = fullProhileInfo.split("\n");
-                    for (int count = 0; count < lines.length; ++count) {
-                        if (lines[count].equals("Родной город")){
-
-                        }
-                    }
-                } catch (Exception e) {
-
-                }*/
+                parseInfoContainerShort(driver.findElement(By.className("profile_info_short")), profileInfo);
+                parseInfoContainerFull(driver.findElement(By.className("profile_info_full")), profileInfo);
 
                 //GET ALL FRIENDS
                 driver.get("https://www.vk.com/friends?id=" + i + "&section=all");
@@ -144,156 +136,314 @@ public class SeleniumParser {
         }
     }
 
-    private void parseInfoContainer(WebElement infoContainer, ProfileInfo profileInfo) {
+    private void parseInfoContainerShort(WebElement infoContainer, ProfileInfo profileInfo) {
         String lines[] = infoContainer.getText().split("\n");
+
         for (int count = 0; count < lines.length; ++count) {
             String line = lines[count];
-            if (count == lines.length - 1){
+            if (count == lines.length - 1) {
                 continue;
             }
             String value = lines[count + 1];
             if (line.equals("День рождения:")) {
-                profileInfo.setBirthDate(lines[count + 1]);
+                profileInfo.setBirthDate(value);
+                ++count;
             }
             if (line.equals("Город:")) {
-                profileInfo.setCity(lines[count + 1]);
+                profileInfo.setCity(value);
+                ++count;
             }
             if (line.equals("Семейное положение:")) {
-                profileInfo.setFamilyStatus(lines[count + 1]);
-            }
-            if (line.equals("Образование:")) {
-                profileInfo.setMainEducation(lines[count + 1]);
+                profileInfo.setFamilyStatus(value);
+                ++count;
             }
             if (line.equals("Веб-сайт:")) {
-                profileInfo.setSite(lines[count + 1]);
+                profileInfo.setSite(value);
+                ++count;
             }
-            if (line.equals("Веб-сайт:")) {
-                profileInfo.setSite(lines[count + 1]);
+        }
+    }
+
+    private void parseInfoContainerFull(WebElement infoContainer, ProfileInfo profileInfo) {
+        String lines[] = infoContainer.getText().split("\n");
+        List<WebElement> refList = infoContainer.findElements(By.tagName("a"));
+
+        for (int count = 0; count < lines.length; ++count) {
+            String line = lines[count];
+            if (count == lines.length - 1) {
+                continue;
             }
+            String value = lines[count + 1];
+
             if (line.equals("Полит. предпочтения:")) {
-                profileInfo.setPoliticPreferences(lines[count + 1]);
+                profileInfo.setPoliticPreferences(value);
+                ++count;
             }
-            if (line.equals("Мировоззрение:")){
-                profileInfo.setWorldView(lines[count + 1]);
+            if (line.equals("Мировоззрение:")) {
+                profileInfo.setWorldView(value);
+                ++count;
             }
-            if (line.equals("Главное в жизни:")){
+            if (line.equals("Главное в жизни:")) {
                 profileInfo.setMainInLife(value);
+                ++count;
             }
-            if (line.equals("Главное в людях:")){
+            if (line.equals("Главное в людях:")) {
                 profileInfo.setMainInPeople(value);
+                ++count;
             }
-            if (line.equals("Отн. к курению:")){
+            if (line.equals("Отн. к курению:")) {
                 profileInfo.setRelationToSmoke(value);
+                ++count;
             }
-            if (line.equals("Отн. к алкоголю:")){
+            if (line.equals("Отн. к алкоголю:")) {
                 profileInfo.setRelationToDrink(value);
+                ++count;
             }
-            if (line.equals("Вдохновляют:")){
+            if (line.equals("Вдохновляют:")) {
                 profileInfo.setInspire(value);
+                ++count;
             }
-            if (line.equals("Деятельность:")){
+            if (line.equals("Деятельность:")) {
                 ArrayList<String> activities = Lists.newArrayList(value.split(","));
                 profileInfo.setActivities(activities);
+                ++count;
             }
 
-            if (line.equals("Интересы:")){
+            if (line.equals("Интересы:")) {
                 ArrayList<String> interests = Lists.newArrayList(value.split(","));
                 profileInfo.setInterests(interests);
+                ++count;
             }
 
-            if (line.equals("Любимая музыка:")){
+            if (line.equals("Любимая музыка:")) {
                 ArrayList<String> favouriteMusic = Lists.newArrayList(value.split(","));
                 profileInfo.setFavouriteMusic(favouriteMusic);
+                ++count;
             }
 
-            if (line.equals("Любимые фильмы:")){
+            if (line.equals("Любимые фильмы:")) {
                 ArrayList<String> favouriteFilms = Lists.newArrayList(value.split(","));
                 profileInfo.setFavouriteFilms(favouriteFilms);
+                ++count;
             }
 
-            if (line.equals("Любимые телешоу:")){
+            if (line.equals("Любимые телешоу:")) {
                 ArrayList<String> favouriteShows = Lists.newArrayList(value.split(","));
                 profileInfo.setFavouriteShows(favouriteShows);
+                ++count;
             }
 
-            if (line.equals("Любимые книги:")){
+            if (line.equals("Любимые книги:")) {
                 ArrayList<String> favouriteBooks = Lists.newArrayList(value.split(","));
                 profileInfo.setFavouriteBooks(favouriteBooks);
+                ++count;
             }
 
-            if (line.equals("Люимые игры:")){
+            if (line.equals("Любимые игры:")) {
                 ArrayList<String> favouriteGames = Lists.newArrayList(value.split(","));
                 profileInfo.setFavouriteGames(favouriteGames);
+                ++count;
             }
 
-            final Set<String> brothersSistersColumn = Sets.newHashSet("Сестры:","Братья:","Сестра:", "Брат:", "Братья, сестры:");
+            final Set<String>
+                    brothersSistersColumn =
+                    Sets.newHashSet("Сестры:", "Братья:", "Сестра:", "Брат:", "Братья, сестры:");
             if (brothersSistersColumn.contains(line)) {
-                ArrayList<String> brothersSisters = Lists.newArrayList(lines[count + 1].split(","));
+                ArrayList<String> brothersSisters = Lists.newArrayList(value.split(","));
                 profileInfo.setBrothersSisters(brothersSisters);
+                ++count;
             }
 
-            final Set<String> grandPaAndMaColumn = Sets.newHashSet("Дедушка:", "Бабушка:","Дедушки:","Бабушки:", "Дедушки, бабушки:");
+            final Set<String>
+                    grandPaAndMaColumn =
+                    Sets.newHashSet("Дедушка:", "Бабушка:", "Дедушки:", "Бабушки:",
+                            "Дедушки, бабушки:");
             if (grandPaAndMaColumn.contains(line)) {
-                ArrayList<String> grandPaAndMa = Lists.newArrayList(lines[count + 1].split(","));
+                ArrayList<String> grandPaAndMa = Lists.newArrayList(value.split(","));
                 profileInfo.setGrandPaAndMa(grandPaAndMa);
+                ++count;
             }
 
             if (line.equals("Место работы:")) {
                 ArrayList<String> workplaces = profileInfo.getWorkplace();
-                String newWorkplace = lines[count + 1];
-                if (workplaces == null){
+                String newWorkplace = value;
+                if (workplaces == null) {
                     profileInfo.setWorkplace(Lists.newArrayList(newWorkplace));
                 } else {
                     workplaces.add(newWorkplace);
                     profileInfo.setWorkplace(workplaces);
                 }
+                ++count;
             }
 
             if (line.equals("Вуз:")) {
                 ArrayList<String> institutes = profileInfo.getInstitutes();
-                String newInstitute = lines[count + 1];
-                if (institutes == null){
+                String newInstitute = value;
+                if (institutes == null) {
                     profileInfo.setInstitutes(Lists.newArrayList(newInstitute));
                 } else {
                     institutes.add(newInstitute);
                     profileInfo.setInstitutes(institutes);
                 }
-            }
 
-            if (line.equals("Факультет:")) {
-                ArrayList<String> faculties = profileInfo.getFaculties();
-                String newFaculty = lines[count + 1];
-                if (faculties == null){
-                    profileInfo.setWorkplace(Lists.newArrayList(newFaculty));
-                } else {
-                    faculties.add(newFaculty);
-                    profileInfo.setFaculties(faculties);
+                //index out of bound exception!
+                int addCounter = 2;
+                try {
+                    if (lines[count + addCounter].equals("Факультет:")) {
+                        ArrayList<String> faculties = profileInfo.getFaculties();
+                        String newFaculty = lines[count + addCounter + 1];
+                        if (faculties == null) {
+                            profileInfo.setFaculties(Lists.newArrayList(newFaculty));
+                        } else {
+                            faculties.add(newFaculty);
+                            profileInfo.setFaculties(faculties);
+                        }
+                        addCounter += 2;
+                    } else {
+                        ArrayList<String> faculties = profileInfo.getFaculties();
+                        String newFaculty = "noneSpecialRowFac75747547";
+                        if (faculties == null) {
+                            profileInfo.setFaculties(Lists.newArrayList(newFaculty));
+                        } else {
+                            faculties.add(newFaculty);
+                            profileInfo.setFaculties(faculties);
+                        }
+                    }
+
+                    if (lines[count + addCounter].equals("Кафедра/направление:")) {
+                        ArrayList<String> instituteDepartments = profileInfo.getInstituteDepartments();
+                        String newInstituteDepartment = lines[count + addCounter + 1];
+                        if (instituteDepartments == null) {
+                            profileInfo.setInstituteDepartments(Lists.newArrayList(newInstituteDepartment));
+                        } else {
+                            instituteDepartments.add(newInstituteDepartment);
+                            profileInfo.setInstituteDepartments(instituteDepartments);
+                        }
+                        addCounter += 2;
+                    } else {
+                        ArrayList<String> instituteDepartments = profileInfo.getFaculties();
+                        String newInstituteDepartment = "noneSpecialRowDep75747547";
+                        if (instituteDepartments == null) {
+                            profileInfo.setInstituteDepartments(Lists.newArrayList(newInstituteDepartment));
+                        } else {
+                            instituteDepartments.add(newInstituteDepartment);
+                            profileInfo.setInstituteDepartments(instituteDepartments);
+                        }
+                    }
+
+                    if (lines[count + addCounter].equals("Форма обучения:")) {
+                        ArrayList<String> instituteForm = profileInfo.getInstituteForm();
+                        String newInstituteForm = lines[count + addCounter + 1];
+                        if (instituteForm == null) {
+                            profileInfo.setInstituteForm(Lists.newArrayList(newInstituteForm));
+                        } else {
+                            instituteForm.add(newInstituteForm);
+                            profileInfo.setInstituteForm(instituteForm);
+                        }
+                        addCounter += 2;
+                    } else {
+                        ArrayList<String> instituteDepartments = profileInfo.getInstituteForm();
+                        String newInstituteForm = "noneSpecialRowForm75747547";
+                        if (instituteDepartments == null) {
+                            profileInfo.setInstituteForm(Lists.newArrayList(newInstituteForm));
+                        } else {
+                            instituteDepartments.add(newInstituteForm);
+                            profileInfo.setInstituteForm(instituteDepartments);
+                        }
+                    }
+
+                    if (lines[count + addCounter].equals("Статус:")) {
+                        ArrayList<String> instituteStatus = profileInfo.getInstituteStatus();
+                        String newInstituteStatus = lines[count + addCounter + 1];
+                        if (instituteStatus == null) {
+                            profileInfo.setInstituteStatus(Lists.newArrayList(newInstituteStatus));
+                        } else {
+                            instituteStatus.add(newInstituteStatus);
+                            profileInfo.setInstituteStatus(instituteStatus);
+                        }
+                        addCounter += 2;
+                    } else {
+                        ArrayList<String> instituteStatus = profileInfo.getInstituteStatus();
+                        String newInstituteStatus = "noneSpecialRowStatus75747547";
+                        if (instituteStatus == null) {
+                            profileInfo.setInstituteStatus(Lists.newArrayList(newInstituteStatus));
+                        } else {
+                            instituteStatus.add(newInstituteStatus);
+                            profileInfo.setInstituteStatus(instituteStatus);
+                        }
+                    }
+
+                } catch (Exception exc) {
+
                 }
+                count = count + addCounter - 1;
             }
 
-            if (line.equals("Кафедра/направление:")){
-                ArrayList<String> instituteDepartments = profileInfo.getIntituteDepartments();
-                String newInstituteDepartment = lines[count + 1];
-                if (instituteDepartments == null){
-                    profileInfo.setWorkplace(Lists.newArrayList(newInstituteDepartment));
-                } else {
-                    instituteDepartments.add(newInstituteDepartment);
-                    profileInfo.setIntituteDepartments(instituteDepartments);
-                }
-            }
-
-            if (line.equals("Школа:")){
+            if (line.equals("Школа:")) {
                 ArrayList<String> schools = profileInfo.getSchools();
-                String newSchool = lines[count + 1];
-                if (schools == null){
-                    profileInfo.setWorkplace(Lists.newArrayList(newSchool));
+                String newSchool = value;
+                if (schools == null) {
+                    profileInfo.setSchools(Lists.newArrayList(newSchool));
                 } else {
                     schools.add(newSchool);
                     profileInfo.setSchools(schools);
                 }
+                ++count;
             }
 
-            ++count;
+            if (line.equals("Моб. телефон:")) {
+                profileInfo.setMobilePhone(value);
+                ++count;
+            }
+
+            if (line.equals("Доп. телефон:")) {
+                profileInfo.setSecondPhone(value);
+                ++count;
+            }
+
+            if (line.equals("Skype:")) {
+                profileInfo.setSkype(value);
+                ++count;
+            }
+
+            if (line.equals("Instagram:")) {
+                for (WebElement we : refList) {
+                    if (we.getAttribute("href").contains("instagram")) {
+                        profileInfo.setInstagram(we.getAttribute("href"));
+                    }
+                }
+                ++count;
+            }
+
+            if (line.equals("Twitter:")) {
+                for (WebElement we : refList) {
+                    if (we.getAttribute("href").contains("twitter")) {
+                        profileInfo.setTwitter(we.getAttribute("href"));
+                    }
+                }
+                ++count;
+            }
+
+            if (line.equals("Facebook:")) {
+                for (WebElement we : refList) {
+                    if (we.getAttribute("href").contains("facebook")) {
+                        profileInfo.setFacebook(we.getAttribute("href"));
+                    }
+                }
+                ++count;
+            }
+
+            if (line.equals("Войсковая часть:")) {
+                ArrayList<String> militaryUnit = profileInfo.getMilitaryUnit();
+                String newMilitaryUnit = lines[count + 1];
+                if (militaryUnit == null) {
+                    profileInfo.setMilitaryUnit(Lists.newArrayList(newMilitaryUnit));
+                } else {
+                    militaryUnit.add(newMilitaryUnit);
+                    profileInfo.setMilitaryUnit(militaryUnit);
+                }
+                ++count;
+            }
         }
     }
 
