@@ -1,13 +1,14 @@
 package org.schematch_team.parsing;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class SeleniumParser {
 
@@ -19,19 +20,19 @@ public class SeleniumParser {
     public SeleniumParser() {
         //проставьте путь до selenium driver
         System.setProperty("webdriver.chrome.driver",
-                "/Users/vitalijmonastyrev/Проекты/VkPeople/chromedriver");
+                "C:\\111\\chromedriver.exe");
         driver = new ChromeDriver();
     }
 
     void parse() {
         driver.get("https://www.vk.com");
-        driver.findElement(By.id("index_email")).sendKeys("phone"); //логин и пароль проставить
-        driver.findElement(By.id("index_pass")).sendKeys("pass");
+        driver.findElement(By.id("index_email")).sendKeys("89119705945"); //логин и пароль проставить
+        driver.findElement(By.id("index_pass")).sendKeys("GoWork17");
         driver.findElement(By.id("index_login_button")).click();
-        driver.get("https://www.vk.com/id513142927");
 
         //Тут перебирайте все айдишники
         for (int i = 513142927; i <= 513142927; i++) {
+
             try {
                 //GET PROFILE INFO
                 driver.get("https://www.vk.com/id" + i);
@@ -43,33 +44,7 @@ public class SeleniumParser {
                 String name = driver.findElement(By.className("page_name")).getText();
                 profileInfo.setName(name);
 
-
                 try {
-                    String mainInfo = driver.findElement(By.className("profile_info")).getText();
-                    String[] lines = mainInfo.split(System.getProperty("line.separator"));
-                    for (int count = 0; count < lines.length; ++count) {
-                        if (lines[count].equals("День рождения:")) {
-                            profileInfo.setBirthDate(lines[count + 1]);
-                        }
-                        if (lines[count].equals("Город:")) {
-                            profileInfo.setCity(lines[count + 1]);
-                        }
-                        if (lines[count].equals("Семейное положение:")) {
-                            profileInfo.setFamilyStatus(lines[count + 1]);
-                        }
-                        if (lines[count].equals("Образование:")) {
-                            profileInfo.setMainEducation(lines[count + 1]);
-                        }
-                        if (lines[count].equals("Веб-сайт:")) {
-                            profileInfo.setSite(lines[count + 1]);
-                        }
-                        ++count;
-                    }
-                } catch (Exception e) {
-
-                }
-
-                /*try {
                     driver.findElement(By.className("profile_more_info_link")).click();
                 } catch (Exception e) {
 
@@ -80,8 +55,20 @@ public class SeleniumParser {
                 } catch (Exception e) {
 
                 }
-                try {
-                    System.out.println(driver.findElement(By.className("profile_info_full")).getText());
+
+                Collection<WebElement> infoContainers = driver.findElements(By.className("profile_info"));
+                for (WebElement infoContainer : infoContainers) {
+                    parseInfoContainer(infoContainer, profileInfo);
+                }
+                int x = 0;
+               /* try {
+                    String fullProhileInfo = driver.findElement(By.className("profile_info_full")).getText();
+                    String[] lines = fullProhileInfo.split("\n");
+                    for (int count = 0; count < lines.length; ++count) {
+                        if (lines[count].equals("Родной город")){
+
+                        }
+                    }
                 } catch (Exception e) {
 
                 }*/
@@ -103,7 +90,7 @@ public class SeleniumParser {
 
                     for (WebElement we : webElements) {
                         List<WebElement> refList = we.findElements(By.tagName("a"));
-                        for(WebElement we2 : refList) {
+                        for (WebElement we2 : refList) {
                             friends.add(we2.getAttribute("href"));
                         }
                     }
@@ -154,6 +141,159 @@ public class SeleniumParser {
             } catch (Exception e) {
 
             }
+        }
+    }
+
+    private void parseInfoContainer(WebElement infoContainer, ProfileInfo profileInfo) {
+        String lines[] = infoContainer.getText().split("\n");
+        for (int count = 0; count < lines.length; ++count) {
+            String line = lines[count];
+            if (count == lines.length - 1){
+                continue;
+            }
+            String value = lines[count + 1];
+            if (line.equals("День рождения:")) {
+                profileInfo.setBirthDate(lines[count + 1]);
+            }
+            if (line.equals("Город:")) {
+                profileInfo.setCity(lines[count + 1]);
+            }
+            if (line.equals("Семейное положение:")) {
+                profileInfo.setFamilyStatus(lines[count + 1]);
+            }
+            if (line.equals("Образование:")) {
+                profileInfo.setMainEducation(lines[count + 1]);
+            }
+            if (line.equals("Веб-сайт:")) {
+                profileInfo.setSite(lines[count + 1]);
+            }
+            if (line.equals("Веб-сайт:")) {
+                profileInfo.setSite(lines[count + 1]);
+            }
+            if (line.equals("Полит. предпочтения:")) {
+                profileInfo.setPoliticPreferences(lines[count + 1]);
+            }
+            if (line.equals("Мировоззрение:")){
+                profileInfo.setWorldView(lines[count + 1]);
+            }
+            if (line.equals("Главное в жизни:")){
+                profileInfo.setMainInLife(value);
+            }
+            if (line.equals("Главное в людях:")){
+                profileInfo.setMainInPeople(value);
+            }
+            if (line.equals("Отн. к курению:")){
+                profileInfo.setRelationToSmoke(value);
+            }
+            if (line.equals("Отн. к алкоголю:")){
+                profileInfo.setRelationToDrink(value);
+            }
+            if (line.equals("Вдохновляют:")){
+                profileInfo.setInspire(value);
+            }
+            if (line.equals("Деятельность:")){
+                ArrayList<String> activities = Lists.newArrayList(value.split(","));
+                profileInfo.setActivities(activities);
+            }
+
+            if (line.equals("Интересы:")){
+                ArrayList<String> interests = Lists.newArrayList(value.split(","));
+                profileInfo.setInterests(interests);
+            }
+
+            if (line.equals("Любимая музыка:")){
+                ArrayList<String> favouriteMusic = Lists.newArrayList(value.split(","));
+                profileInfo.setFavouriteMusic(favouriteMusic);
+            }
+
+            if (line.equals("Любимые фильмы:")){
+                ArrayList<String> favouriteFilms = Lists.newArrayList(value.split(","));
+                profileInfo.setFavouriteFilms(favouriteFilms);
+            }
+
+            if (line.equals("Любимые телешоу:")){
+                ArrayList<String> favouriteShows = Lists.newArrayList(value.split(","));
+                profileInfo.setFavouriteShows(favouriteShows);
+            }
+
+            if (line.equals("Любимые книги:")){
+                ArrayList<String> favouriteBooks = Lists.newArrayList(value.split(","));
+                profileInfo.setFavouriteBooks(favouriteBooks);
+            }
+
+            if (line.equals("Люимые игры:")){
+                ArrayList<String> favouriteGames = Lists.newArrayList(value.split(","));
+                profileInfo.setFavouriteGames(favouriteGames);
+            }
+
+            final Set<String> brothersSistersColumn = Sets.newHashSet("Сестры:","Братья:","Сестра:", "Брат:", "Братья, сестры:");
+            if (brothersSistersColumn.contains(line)) {
+                ArrayList<String> brothersSisters = Lists.newArrayList(lines[count + 1].split(","));
+                profileInfo.setBrothersSisters(brothersSisters);
+            }
+
+            final Set<String> grandPaAndMaColumn = Sets.newHashSet("Дедушка:", "Бабушка:","Дедушки:","Бабушки:", "Дедушки, бабушки:");
+            if (grandPaAndMaColumn.contains(line)) {
+                ArrayList<String> grandPaAndMa = Lists.newArrayList(lines[count + 1].split(","));
+                profileInfo.setGrandPaAndMa(grandPaAndMa);
+            }
+
+            if (line.equals("Место работы:")) {
+                ArrayList<String> workplaces = profileInfo.getWorkplace();
+                String newWorkplace = lines[count + 1];
+                if (workplaces == null){
+                    profileInfo.setWorkplace(Lists.newArrayList(newWorkplace));
+                } else {
+                    workplaces.add(newWorkplace);
+                    profileInfo.setWorkplace(workplaces);
+                }
+            }
+
+            if (line.equals("Вуз:")) {
+                ArrayList<String> institutes = profileInfo.getInstitutes();
+                String newInstitute = lines[count + 1];
+                if (institutes == null){
+                    profileInfo.setInstitutes(Lists.newArrayList(newInstitute));
+                } else {
+                    institutes.add(newInstitute);
+                    profileInfo.setInstitutes(institutes);
+                }
+            }
+
+            if (line.equals("Факультет:")) {
+                ArrayList<String> faculties = profileInfo.getFaculties();
+                String newFaculty = lines[count + 1];
+                if (faculties == null){
+                    profileInfo.setWorkplace(Lists.newArrayList(newFaculty));
+                } else {
+                    faculties.add(newFaculty);
+                    profileInfo.setFaculties(faculties);
+                }
+            }
+
+            if (line.equals("Кафедра/направление:")){
+                ArrayList<String> instituteDepartments = profileInfo.getIntituteDepartments();
+                String newInstituteDepartment = lines[count + 1];
+                if (instituteDepartments == null){
+                    profileInfo.setWorkplace(Lists.newArrayList(newInstituteDepartment));
+                } else {
+                    instituteDepartments.add(newInstituteDepartment);
+                    profileInfo.setIntituteDepartments(instituteDepartments);
+                }
+            }
+
+            if (line.equals("Школа:")){
+                ArrayList<String> schools = profileInfo.getSchools();
+                String newSchool = lines[count + 1];
+                if (schools == null){
+                    profileInfo.setWorkplace(Lists.newArrayList(newSchool));
+                } else {
+                    schools.add(newSchool);
+                    profileInfo.setSchools(schools);
+                }
+            }
+
+            ++count;
         }
     }
 
