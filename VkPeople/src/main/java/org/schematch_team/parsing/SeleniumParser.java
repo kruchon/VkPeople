@@ -175,6 +175,10 @@ public class SeleniumParser {
             }
             String value = lines[count + 1];
 
+            if (line.equals("Родной город:")) {
+                profileInfo.setHomeCity(value);
+                ++count;
+            }
             if (line.equals("Полит. предпочтения:")) {
                 profileInfo.setPoliticPreferences(value);
                 ++count;
