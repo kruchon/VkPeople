@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SeleniumParser {
@@ -24,8 +25,8 @@ public class SeleniumParser {
 
     void parse() {
         driver.get("https://www.vk.com");
-        driver.findElement(By.id("index_email")).sendKeys("+77 (478) 422-345"); //логин и пароль проставить
-        driver.findElement(By.id("index_pass")).sendKeys("Ckj;ysqGfhjkm");
+        driver.findElement(By.id("index_email")).sendKeys("phone"); //логин и пароль проставить
+        driver.findElement(By.id("index_pass")).sendKeys("pass");
         driver.findElement(By.id("index_login_button")).click();
         driver.get("https://www.vk.com/id513142927");
 
@@ -68,7 +69,6 @@ public class SeleniumParser {
 
                 }
 
-                System.out.println(profileInfo.toString());
                 /*try {
                     driver.findElement(By.className("profile_more_info_link")).click();
                 } catch (Exception e) {
@@ -86,7 +86,7 @@ public class SeleniumParser {
 
                 }*/
 
-                /*//GET ALL FRIENDS
+                //GET ALL FRIENDS
                 driver.get("https://www.vk.com/friends?id=" + i + "&section=all");
 
                 while (true) {
@@ -97,45 +97,35 @@ public class SeleniumParser {
                     }
                 }
 
-
                 try {
+                    ArrayList<String> friends = new ArrayList<String>();
                     List<WebElement> webElements = driver.findElements(By.className("friends_field_title"));
 
                     for (WebElement we : webElements) {
                         List<WebElement> refList = we.findElements(By.tagName("a"));
                         for(WebElement we2 : refList) {
-                            System.out.println(we2.getAttribute("href"));
+                            friends.add(we2.getAttribute("href"));
                         }
                     }
-
+                    profileInfo.setFriends(friends);
                 } catch (Exception e) {
 
-                }
-
-
-                driver.get("https://www.vk.com/friends?id=" + i + "&section=all");
-
-                while (true) {
-                    try {
-                        driver.findElement(By.id("show_more")).click();
-                    } catch (Exception exc) {
-                        break;
-                    }
                 }
 
                 //PAGES
                 driver.get("https://m.vk.com/id" + i + "?act=idols");
                 scrollToEnd(driver);
                 try {
+                    ArrayList<String> pages = new ArrayList<String>();
                     List<WebElement> webElements = driver.findElements(By.id("id_search_items"));
 
                     for (WebElement we : webElements) {
                         List<WebElement> refList = we.findElements(By.tagName("a"));
                         for (WebElement we2 : refList) {
-                            System.out.println(we2.getAttribute("href"));
+                            pages.add(we2.getAttribute("href"));
                         }
                     }
-
+                    profileInfo.setPages(pages);
                 } catch (Exception e) {
 
                 }
@@ -144,18 +134,22 @@ public class SeleniumParser {
                 driver.get("https://m.vk.com/groups?id=" + i);
                 scrollToEnd(driver);
                 try {
+                    ArrayList<String> groups = new ArrayList<String>();
                     List<WebElement> webElements = driver.findElements(By.id("gr_search_items"));
 
                     for (WebElement we : webElements) {
                         List<WebElement> refList = we.findElements(By.tagName("a"));
                         for (WebElement we2 : refList) {
-                            System.out.println(we2.getAttribute("href"));
+                            groups.add(we2.getAttribute("href"));
                         }
                     }
+                    profileInfo.setGroups(groups);
 
                 } catch (Exception e) {
 
-                }*/
+                }
+                System.out.println(profileInfo.toString());
+
 
             } catch (Exception e) {
 
