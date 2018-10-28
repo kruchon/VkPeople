@@ -24,8 +24,8 @@ public class SeleniumParser {
 
     void parse() {
         driver.get("https://www.vk.com");
-        driver.findElement(By.id("index_email")).sendKeys("PHONE"); //логин и пароль проставить
-        driver.findElement(By.id("index_pass")).sendKeys("PASS");
+        driver.findElement(By.id("index_email")).sendKeys("+77 (478) 422-345"); //логин и пароль проставить
+        driver.findElement(By.id("index_pass")).sendKeys("Ckj;ysqGfhjkm");
         driver.findElement(By.id("index_login_button")).click();
         driver.get("https://www.vk.com/id513142927");
 
@@ -35,15 +35,41 @@ public class SeleniumParser {
                 //GET PROFILE INFO
                 driver.get("https://www.vk.com/id" + i);
                 Thread.sleep(1000);
-                System.out.println(driver.findElement(By.className("page_name")).getText());
+
+                ProfileInfo profileInfo = new ProfileInfo();
+                profileInfo.setId(String.valueOf(i));
+
+                String name = driver.findElement(By.className("page_name")).getText();
+                profileInfo.setName(name);
+
 
                 try {
-                    System.out.println(driver.findElement(By.className("profile_info")).getText());
+                    String mainInfo = driver.findElement(By.className("profile_info")).getText();
+                    String[] lines = mainInfo.split(System.getProperty("line.separator"));
+                    for (int count = 0; count < lines.length; ++count) {
+                        if (lines[count].equals("День рождения:")) {
+                            profileInfo.setBirthDate(lines[count + 1]);
+                        }
+                        if (lines[count].equals("Город:")) {
+                            profileInfo.setCity(lines[count + 1]);
+                        }
+                        if (lines[count].equals("Семейное положение:")) {
+                            profileInfo.setFamilyStatus(lines[count + 1]);
+                        }
+                        if (lines[count].equals("Образование:")) {
+                            profileInfo.setMainEducation(lines[count + 1]);
+                        }
+                        if (lines[count].equals("Веб-сайт:")) {
+                            profileInfo.setSite(lines[count + 1]);
+                        }
+                        ++count;
+                    }
                 } catch (Exception e) {
 
                 }
 
-                try {
+                System.out.println(profileInfo.toString());
+                /*try {
                     driver.findElement(By.className("profile_more_info_link")).click();
                 } catch (Exception e) {
 
@@ -58,9 +84,9 @@ public class SeleniumParser {
                     System.out.println(driver.findElement(By.className("profile_info_full")).getText());
                 } catch (Exception e) {
 
-                }
+                }*/
 
-                //GET ALL FRIENDS
+                /*//GET ALL FRIENDS
                 driver.get("https://www.vk.com/friends?id=" + i + "&section=all");
 
                 while (true) {
@@ -129,7 +155,7 @@ public class SeleniumParser {
 
                 } catch (Exception e) {
 
-                }
+                }*/
 
             } catch (Exception e) {
 
