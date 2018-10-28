@@ -26,8 +26,8 @@ public class SeleniumParser {
 
     void parse() {
         driver.get("https://www.vk.com");
-        driver.findElement(By.id("index_email")).sendKeys("89119705945"); //логин и пароль проставить
-        driver.findElement(By.id("index_pass")).sendKeys("GoWork17");
+        driver.findElement(By.id("index_email")).sendKeys("ЛОГИН"); //логин и пароль проставить
+        driver.findElement(By.id("index_pass")).sendKeys("ДА БЛИН ДА ТУТ НЕ ПАРОЛЬ ТУТ ПРОСТО БУКВЫ");
         driver.findElement(By.id("index_login_button")).click();
 
         //Тут перебирайте все айдишники
