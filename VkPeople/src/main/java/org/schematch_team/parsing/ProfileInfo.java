@@ -410,6 +410,7 @@ public class ProfileInfo {
                 + activities + ", interests=" + interests + ", favouriteMusic=" + favouriteMusic
                 + ", favouriteFilms=" + favouriteFilms + ", favouriteShows=" + favouriteShows
                 + ", favouriteBooks=" + favouriteBooks + ", favouriteGames=" + favouriteGames
+                + ", favouriteQuotes=" + favouriteQuotes + ", aboutMe=" + aboutMe 
                 + ", mobilePhone='" + mobilePhone + '\'' + ", secondPhone='" + secondPhone + '\''
                 + ", skype='" + skype + '\'' + ", instagram='" + instagram + '\'' + ", twitter='"
                 + twitter + '\'' + ", facebook='" + facebook + '\'' + ", militaryUnit="
