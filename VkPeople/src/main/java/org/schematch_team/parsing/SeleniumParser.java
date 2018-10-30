@@ -248,6 +248,18 @@ public class SeleniumParser {
                 profileInfo.setFavouriteGames(favouriteGames);
                 ++count;
             }
+            
+            if (line.equals("Любимые цитаты:")) {
+                ArrayList<String> favouriteQuotes = Lists.newArrayList(value.split(","));
+                profileInfo.setFavouriteQuotes(favouriteQuotes);
+                ++count;
+            }
+            
+            if (line.equals("О себе:")) {
+                ArrayList<String> aboutMe = Lists.newArrayList(value.split(","));
+                profileInfo.setAboutMe(aboutMe);
+                ++count;
+            }
 
             final Set<String>
                     brothersSistersColumn =
