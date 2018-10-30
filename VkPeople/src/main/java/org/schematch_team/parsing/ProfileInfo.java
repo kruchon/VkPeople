@@ -44,6 +44,26 @@ public class ProfileInfo {
     private String twitter;
     private String facebook;
     private ArrayList<String> militaryUnit;
+    private ArrayList<String> favouriteQuotes;
+    private ArrayList<String> aboutMe;
+    
+    public void setFavouriteQuotes(ArrayList<String> favouriteQuotes) 
+    {
+        this.favouriteQuotes = favouriteQuotes;
+    }
+
+    public ArrayList<String> getFavouriteQuotes() {
+        return favouriteQuotes;
+    }
+    
+    public void setAboutMe(ArrayList<String> aboutMe) 
+    {
+        this.aboutMe = aboutMe;
+    }
+
+    public ArrayList<String> getAboutMe() {
+        return aboutMe;
+    }
 
     public String getStatus() {
         return status;
