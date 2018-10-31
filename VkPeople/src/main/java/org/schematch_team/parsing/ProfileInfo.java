@@ -15,13 +15,17 @@ public class ProfileInfo {
     private ArrayList<String> pages;
     private String homeCity;
     private ArrayList<String> brothersSisters;
+    private ArrayList<String> languages;
     private ArrayList<String> grandPaAndMa;
+    private ArrayList<String> children;
+    private ArrayList<String> parents;
     private ArrayList<String> workplace;
     private ArrayList<String> institutes;
     private ArrayList<String> faculties;
     private ArrayList<String> instituteDepartments;
     private ArrayList<String> instituteForm;
     private ArrayList<String> instituteStatus;
+    private ArrayList<String> military;
     private ArrayList<String> schools;
     private String politicPreferences;
     private String worldView;
@@ -37,6 +41,7 @@ public class ProfileInfo {
     private ArrayList<String> favouriteShows;
     private ArrayList<String> favouriteBooks;
     private ArrayList<String> favouriteGames;
+    private ArrayList<String> grandChildren;
     private String mobilePhone;
     private String secondPhone;
     private String skype;
@@ -47,7 +52,49 @@ public class ProfileInfo {
     private ArrayList<String> favouriteQuotes;
     private ArrayList<String> aboutMe;
     
-    public void setFavouriteQuotes(ArrayList<String> favouriteQuotes) 
+    
+    
+    public ArrayList<String> getMilitary () {
+		return military;
+	}
+
+	public void setMilitary (ArrayList<String> military ) {
+		this.military = military;
+	}
+
+	public ArrayList<String> getGrandChildren() {
+		return grandChildren;
+	}
+
+	public void setGrandChildren(ArrayList<String> grandChildren) {
+		this.grandChildren = grandChildren;
+	}
+
+	public ArrayList<String> getChildren() {
+		return children;
+	}
+
+	public void setChildren(ArrayList<String> children) {
+		this.children = children;
+	}
+
+	public ArrayList<String> getParents() {
+		return parents;
+	}
+
+	public void setParents(ArrayList<String> parents) {
+		this.parents = parents;
+	}
+
+	public ArrayList<String> getLanguages() {
+		return languages;
+	}
+
+	public void setLanguages(ArrayList<String> languages) {
+		this.languages = languages;
+	}
+
+	public void setFavouriteQuotes(ArrayList<String> favouriteQuotes) 
     {
         this.favouriteQuotes = favouriteQuotes;
     }
@@ -394,26 +441,52 @@ public class ProfileInfo {
     }
 
     @Override public String toString() {
-        return "ProfileInfo{" + "id='" + id + '\'' + ", name='" + name + '\'' + ", status='"
-                + status + '\'' + ", familyStatus='" + familyStatus + '\'' + ", site='" + site
-                + '\'' + ", birthDate='" + birthDate + '\'' + ", city='" + city + '\''
-                + ", friends=" + friends + ", groups=" + groups + ", pages=" + pages
-                + ", homeCity='" + homeCity + '\'' + ", brothersSisters=" + brothersSisters
-                + ", grandPaAndMa=" + grandPaAndMa + ", workplace=" + workplace + ", institutes="
-                + institutes + ", faculties=" + faculties + ", instituteDepartments="
-                + instituteDepartments + ", instituteForm=" + instituteForm + ", instituteStatus="
-                + instituteStatus + ", schools=" + schools + ", politicPreferences='"
-                + politicPreferences + '\'' + ", worldView='" + worldView + '\'' + ", mainInLife='"
-                + mainInLife + '\'' + ", mainInPeople='" + mainInPeople + '\''
-                + ", relationToSmoke='" + relationToSmoke + '\'' + ", relationToDrink='"
-                + relationToDrink + '\'' + ", inspire='" + inspire + '\'' + ", activities="
-                + activities + ", interests=" + interests + ", favouriteMusic=" + favouriteMusic
-                + ", favouriteFilms=" + favouriteFilms + ", favouriteShows=" + favouriteShows
-                + ", favouriteBooks=" + favouriteBooks + ", favouriteGames=" + favouriteGames
-                + ", favouriteQuotes=" + favouriteQuotes + ", aboutMe=" + aboutMe 
-                + ", mobilePhone='" + mobilePhone + '\'' + ", secondPhone='" + secondPhone + '\''
-                + ", skype='" + skype + '\'' + ", instagram='" + instagram + '\'' + ", twitter='"
-                + twitter + '\'' + ", facebook='" + facebook + '\'' + ", militaryUnit="
-                + militaryUnit + '}';
+        return "ProfileInfo{" + 
+        		"\n" + "id = " + id + 
+        		"\n" + "name = " + name + 
+        		"\n" + "status = " + status + 
+        		"\n" + "birthDate = " + birthDate + 
+        		"\n" + "city = " + city + 
+        		"\n" + "familyStatus = " + familyStatus + 
+        		"\n" + "site = " + site + 
+        		"\n" + "homeCity = " + homeCity + 
+        		"\n" + "languages = " + languages + 
+        		"\n" + "grandPaAndMa = " + grandPaAndMa + 
+        		"\n" + "parents = " + parents + 
+        		"\n" + "brothersSisters = " + brothersSisters + 
+        		"\n" + "children = " + children + 
+        		"\n" + "grandChildren = " + grandChildren + 
+        		"\n" + "mobilePhone = " + mobilePhone + 
+        		"\n" + "secondPhone = " + secondPhone +
+        		"\n" + "instagram = " + instagram + 
+        		"\n" + "twitter = " + twitter + 
+        		"\n" + "facebook = " + facebook +
+        		"\n" + "workplace = " + workplace + 
+        		"\n" + "institutes = " + institutes + 
+        		"\n" + "faculties = " + faculties +
+        		"\n" + "instituteDepartments = " + instituteDepartments +
+        		"\n" + "instituteForm = " + instituteForm +
+        		"\n" + "instituteStatus = " + instituteStatus +
+        		"\n" + "schools = " + schools +
+        		"\n" + "military = " + military +
+        		"\n" + "politicPreferences = " + politicPreferences +
+        		"\n" + "worldView = " + worldView + 
+        		"\n" + "mainInLife = " + mainInLife +
+        		"\n" + "mainInPeople = " + mainInPeople +
+        		"\n" + "relationToSmoke = " + relationToSmoke +
+        		"\n" + "relationToDrink = " + relationToDrink +
+        		"\n" + "inspire = " + inspire +
+        		"\n" + "activities = " + activities +
+        		"\n" + "interests = " + interests +
+        		"\n" + "favouriteMusic = " + favouriteMusic +
+        		"\n" + "favouriteFilms = " + favouriteFilms +
+        		"\n" + "favouriteShows = " + favouriteShows +
+        		"\n" + "favouriteBooks = " + favouriteBooks +
+        		"\n" + "favouriteGames = " + favouriteGames +
+        		"\n" + "favouriteQuotes = " + favouriteQuotes +
+        		"\n" + "aboutMe = " + aboutMe + 
+        		"\n" + "friends = " + friends + 
+        		"\n" + "groups = " + groups + 
+        		"\n" + "favoritePages = " + pages + "}";
     }
 }

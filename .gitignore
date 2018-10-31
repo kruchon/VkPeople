@@ -2,3 +2,6 @@ chromedriver
 VkPeople/.idea
 VkPeople/target
 .DS_Store
+VkPeople/.classpath
+VkPeople/.project
+VkPeople/.settings/
