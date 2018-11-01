@@ -12,11 +12,12 @@ public class Main {
 	
     private static final String path = "D:\\WS\\chromedriver_win32\\chromedriver.exe";
     
-    private static final String email = "77478422345";
-    private static final String password = "hgjnjhy84;H7hb";
+    private static final String email = " ";
+    private static final String password = " ";
     
-    private static final long firstID = 513142927;
-    private static final long lastID = 513142927;
+    //513142927
+    private static final long firstID = 1;
+    private static final long lastID = 100;
 	
     public static void main(String[] args){
         SeleniumParser seleniumParser = new SeleniumParser(path, email, password);

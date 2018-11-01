@@ -72,8 +72,8 @@ public class SeleniumParser {
 
     private void loginVK(String email, String password) {
     	driver.get("https://www.vk.com");
-        driver.findElement(By.id("index_email")).sendKeys("77478422345"); //логин и пароль проставить
-        driver.findElement(By.id("index_pass")).sendKeys("hgjnjhy84;H7hb");
+        driver.findElement(By.id("index_email")).sendKeys(email);
+        driver.findElement(By.id("index_pass")).sendKeys(password);
         driver.findElement(By.id("index_login_button")).click();
     }
     
