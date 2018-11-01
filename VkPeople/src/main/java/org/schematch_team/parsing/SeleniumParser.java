@@ -12,6 +12,7 @@ import java.util.*;
 /**
  * Парсер для получения датасета с ВК
  */
+
 public class SeleniumParser {
 	
     private final WebDriver driver;
