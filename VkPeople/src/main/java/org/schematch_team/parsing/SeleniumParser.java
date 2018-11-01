@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -38,6 +39,11 @@ public class SeleniumParser {
      * @param lastID - ID последней выгруженной страницы.
      */
     public void parse(long firstID, long lastID) {
+    	
+    	ConnectionJDBC db = null;
+    	try {
+    		db = new ConnectionJDBC();
+		} catch (ClassNotFoundException | SQLException e) {}
 
     	loginVK(email, password);
 
@@ -58,6 +64,9 @@ public class SeleniumParser {
         	getGroups(profileInfo, id);
         	
         	System.out.println(profileInfo.toString());
+        	try {
+				db.put(profileInfo);
+			} catch (Throwable e) {}
         	
         	finish = new Date();
         	long delta = finish.getTime() - start.getTime();
