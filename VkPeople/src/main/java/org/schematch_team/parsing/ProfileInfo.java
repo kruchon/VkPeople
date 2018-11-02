@@ -51,9 +51,58 @@ public class ProfileInfo {
     private ArrayList<String> militaryUnit;
     private ArrayList<String> favouriteQuotes;
     private ArrayList<String> aboutMe;
-    
-    
-    
+
+    public ProfileInfo() {
+        this.id = null;
+        this.name = null;
+        this.status = null;
+        this.familyStatus = null;
+        this.site = null;
+        this.birthDate = null;
+        this.city = null;
+        this.friends = null;
+        this.groups = null;
+        this.pages = null;
+        this.homeCity = null;
+        this.brothersSisters = null;
+        this.languages = null;
+        this.grandPaAndMa = null;
+        this.children = null;
+        this.parents = null;
+        this.workplace = null;
+        this.institutes = null;
+        this.faculties = null;
+        this.instituteDepartments = null;
+        this.instituteForm = null;
+        this.instituteStatus = null;
+        this.military = null;
+        this.schools = null;
+        this.politicPreferences = null;
+        this.worldView = null;
+        this.mainInLife = null;
+        this.mainInPeople = null;
+        this.relationToSmoke = null;
+        this.relationToDrink = null;
+        this.inspire = null;
+        this.activities = null;
+        this.interests = null;
+        this.favouriteMusic = null;
+        this.favouriteFilms = null;
+        this.favouriteShows = null;
+        this.favouriteBooks = null;
+        this.favouriteGames = null;
+        this.grandChildren = null;
+        this.mobilePhone = null;
+        this.secondPhone = null;
+        this.skype = null;
+        this.instagram = null;
+        this.twitter = null;
+        this.facebook = null;
+        this.militaryUnit = null;
+        this.favouriteQuotes = null;
+        this.aboutMe = null;
+    }
+
     public ArrayList<String> getMilitary () {
 		return military;
 	}

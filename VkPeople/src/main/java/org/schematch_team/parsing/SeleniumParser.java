@@ -22,7 +22,7 @@ public class SeleniumParser {
     private final String email;
     private final String password;
   
-    private final String empty = "-";
+    private final String empty = "";
 
     public SeleniumParser(String path, String email, String password) {
     	this.path = path;
@@ -64,7 +64,8 @@ public class SeleniumParser {
         	getFriends(profileInfo, id);
         	getFavoritePages(profileInfo, id);
         	getGroups(profileInfo, id);
-        	
+
+        	fillEmpty(profileInfo);
         	System.out.println(profileInfo.toString());
         	try {
 				db.put(profileInfo);
@@ -449,4 +450,148 @@ public class SeleniumParser {
             e.printStackTrace();
         }
     }
+
+	public void fillEmpty(ProfileInfo profileInfo) {
+    	if (profileInfo.getName() == null) {
+    		profileInfo.setName(empty);
+		}
+		if (profileInfo.getStatus() == null) {
+    		profileInfo.setStatus(empty);
+		}
+		if (profileInfo.getFamilyStatus() == null) {
+    		profileInfo.setFamilyStatus(null);
+		}
+		if (profileInfo.getSite() == null) {
+    		profileInfo.setSite(empty);
+		}
+		if (profileInfo.getBirthDate() == null) {
+    		profileInfo.setBirthDate(empty);
+		}
+		if (profileInfo.getCity() == null) {
+    		profileInfo.setCity(empty);
+		}
+		if (profileInfo.getFriends() == null) {
+    		profileInfo.setFriends(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getGroups() == null) {
+    		profileInfo.setGroups(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getPages() == null) {
+    		profileInfo.setPages(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getHomeCity() == null) {
+    		profileInfo.setHomeCity(empty);
+		}
+		if (profileInfo.getBrothersSisters() == null) {
+    		profileInfo.setBrothersSisters(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getLanguages() == null) {
+    		profileInfo.setLanguages(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getGrandPaAndMa() == null) {
+    		profileInfo.setGrandPaAndMa(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getChildren() == null) {
+    		profileInfo.setChildren(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getParents() == null) {
+    		profileInfo.setParents(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getWorkplace() == null) {
+    		profileInfo.setWorkplace(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getInstitutes() == null) {
+    		profileInfo.setInstitutes(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getFaculties() == null) {
+			profileInfo.setFaculties(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getInstituteDepartments() == null) {
+    		profileInfo.setInstituteDepartments(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getInstituteForm() == null) {
+    		profileInfo.setInstituteForm(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getInstituteStatus() == null) {
+    		profileInfo.setInstituteStatus(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getMilitary() == null) {
+    		profileInfo.setMilitary(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getSchools() == null) {
+    		profileInfo.setSchools(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getPoliticPreferences() == null) {
+    		profileInfo.setPoliticPreferences(empty);
+		}
+		if (profileInfo.getWorldView() == null) {
+    		profileInfo.setWorldView(empty);
+		}
+		if (profileInfo.getMainInLife() == null) {
+    		profileInfo.setMainInLife(empty);
+		}
+		if (profileInfo.getMainInPeople() == null) {
+    		profileInfo.setMainInPeople(empty);
+		}
+		if (profileInfo.getRelationToSmoke() == null) {
+    		profileInfo.setRelationToSmoke(empty);
+		}
+		if (profileInfo.getRelationToDrink() == null) {
+    		profileInfo.setRelationToDrink(empty);
+		}
+		if (profileInfo.getInspire() == null) {
+    		profileInfo.setInspire(empty);
+		}
+		if (profileInfo.getActivities() == null) {
+    		profileInfo.setActivities(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getInterests() == null) {
+    		profileInfo.setInterests(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getFavouriteMusic() == null) {
+    		profileInfo.setFavouriteMusic(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getFavouriteFilms() == null) {
+    		profileInfo.setFavouriteFilms(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getFavouriteShows() == null) {
+    		profileInfo.setFavouriteShows(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getFavouriteBooks() == null) {
+    		profileInfo.setFavouriteBooks(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getFavouriteGames() == null) {
+    		profileInfo.setFavouriteGames(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getGrandChildren() == null) {
+    		profileInfo.setGrandChildren(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getMobilePhone() == null) {
+    		profileInfo.setMobilePhone(empty);
+		}
+		if (profileInfo.getSecondPhone() == null) {
+    		profileInfo.setSecondPhone(empty);
+		}
+		if (profileInfo.getSkype() == null) {
+    		profileInfo.setSkype(empty);
+		}
+		if (profileInfo.getInstagram() == null) {
+    		profileInfo.setInstagram(empty);
+		}
+		if (profileInfo.getTwitter() == null) {
+    		profileInfo.setTwitter(empty);
+		}
+		if (profileInfo.getFacebook() == null) {
+    		profileInfo.setFacebook(empty);
+		}
+		if (profileInfo.getMilitaryUnit() == null) {
+    		profileInfo.setMilitaryUnit(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getFavouriteQuotes() == null) {
+    		profileInfo.setFavouriteQuotes(Lists.newArrayList(empty));
+		}
+		if (profileInfo.getAboutMe() == null) {
+    		profileInfo.setAboutMe(Lists.newArrayList(empty));
+		}
+	}
 }

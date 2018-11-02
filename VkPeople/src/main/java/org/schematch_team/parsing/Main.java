@@ -14,8 +14,8 @@ public class Main {
 	
     private static final String path = "/opt/chromedriver";
     
-    private static final String email = "77478422345";
-    private static final String password = "LJHJUF111;;;";
+    private static final String email = "phone";
+    private static final String password = "pass";
     
     //513142927
     private static final long firstID = 513142927;
