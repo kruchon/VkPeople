@@ -12,14 +12,14 @@ public class Main {
 	 * В firstID и lastID указываем диапазон выгружаемых страниц.
 	 */
 	
-    private static final String path = "D:\\WS\\chromedriver_win32\\chromedriver.exe";
+    private static final String path = "/opt/chromedriver";
     
-    private static final String email = " ";
-    private static final String password = " ";
+    private static final String email = "77478422345";
+    private static final String password = "LJHJUF111;;;";
     
     //513142927
-    private static final long firstID = 1;
-    private static final long lastID = 100;
+    private static final long firstID = 513142927;
+    private static final long lastID = 513142927;
 	
     public static void main(String[] args){
         SeleniumParser seleniumParser = new SeleniumParser(path, email, password);

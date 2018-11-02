@@ -65,8 +65,8 @@ public class ConnectionJDBC {
 						"?,?,?,?,?,?,?,?,?,?," +
 						"?,?,?,?,?,?,?,?,?,?," +
 						"?,?,?,?,?,?,?,?,?,?," +
-						"?,?,?,?,?,?));"); 
-		int i = 0;
+						"?,?,?,?,?,?)");
+		int i = 1;
 		ps.setString(i++, profileInfo.getId());
 		ps.setString(i++, profileInfo.getName());
 		ps.setString(i++, profileInfo.getStatus());
@@ -75,25 +75,25 @@ public class ConnectionJDBC {
 		ps.setString(i++, profileInfo.getFamilyStatus());
 		ps.setString(i++, profileInfo.getSite());
 		ps.setString(i++, profileInfo.getHomeCity());
-		ps.setArray(i++, (Array) profileInfo.getLanguages());
-		ps.setArray(i++, (Array) profileInfo.getGrandPaAndMa());
-		ps.setArray(i++, (Array) profileInfo.getParents());
-		ps.setArray(i++, (Array) profileInfo.getBrothersSisters());
-		ps.setArray(i++, (Array) profileInfo.getChildren());
-		ps.setArray(i++, (Array) profileInfo.getGrandChildren());
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getLanguages().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getGrandPaAndMa().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getParents().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getBrothersSisters().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getChildren().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getGrandChildren().toArray(new String[0])));
 		ps.setString(i++, profileInfo.getMobilePhone());
 		ps.setString(i++, profileInfo.getSecondPhone());
 		ps.setString(i++, profileInfo.getInstagram());
 		ps.setString(i++, profileInfo.getTwitter());
 		ps.setString(i++, profileInfo.getFacebook());
-		ps.setArray(i++, (Array) profileInfo.getWorkplace());
-		ps.setArray(i++, (Array) profileInfo.getInstitutes());
-		ps.setArray(i++, (Array) profileInfo.getFaculties());
-		ps.setArray(i++, (Array) profileInfo.getInstituteDepartments());
-		ps.setArray(i++, (Array) profileInfo.getInstituteForm());
-		ps.setArray(i++, (Array) profileInfo.getInstituteStatus());
-		ps.setArray(i++, (Array) profileInfo.getSchools());
-		ps.setArray(i++, (Array) profileInfo.getMilitary());
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getWorkplace().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getInstitutes().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getFaculties().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getInstituteDepartments().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getInstituteForm().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getInstituteStatus().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getSchools().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getMilitary().toArray(new String[0])));
 		ps.setString(i++, profileInfo.getPoliticPreferences());
 		ps.setString(i++, profileInfo.getWorldView());
 		ps.setString(i++, profileInfo.getMainInLife());
@@ -101,17 +101,20 @@ public class ConnectionJDBC {
 		ps.setString(i++, profileInfo.getRelationToSmoke());
 		ps.setString(i++, profileInfo.getRelationToDrink());
 		ps.setString(i++, profileInfo.getInspire());
-		ps.setArray(i++, (Array) profileInfo.getActivities());
-		ps.setArray(i++, (Array) profileInfo.getInterests());
-		ps.setArray(i++, (Array) profileInfo.getFavouriteMusic());
-		ps.setArray(i++, (Array) profileInfo.getFavouriteFilms());
-		ps.setArray(i++, (Array) profileInfo.getFavouriteShows());
-		ps.setString(i++, profileInfo.getFacebook());
-		ps.setArray(i++, (Array) profileInfo.getFavouriteGames());
-		ps.setArray(i++, (Array) profileInfo.getFavouriteQuotes());
-		ps.setArray(i++, (Array) profileInfo.getAboutMe());
-		ps.setArray(i++, (Array) profileInfo.getFriends());
-		ps.setArray(i++, (Array) profileInfo.getGroups());
-		ps.setArray(i++, (Array) profileInfo.getPages());
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getActivities().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getInterests().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getFavouriteMusic().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getFavouriteFilms().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getFavouriteShows().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getFavouriteBooks().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getFavouriteGames().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getFavouriteQuotes().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getAboutMe().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getFriends().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getGroups().toArray(new String[0])));
+		ps.setArray(i++, connection.createArrayOf("VARCHAR", profileInfo.getPages().toArray(new String[0])));
+		ps.executeUpdate();
+		connection.commit();
+		ps.close();
 	}
 }

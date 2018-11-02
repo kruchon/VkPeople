@@ -43,7 +43,9 @@ public class SeleniumParser {
     	ConnectionJDBC db = null;
     	try {
     		db = new ConnectionJDBC();
-		} catch (ClassNotFoundException | SQLException e) {}
+		} catch (ClassNotFoundException | SQLException e) {
+    		e.printStackTrace();
+		}
 
     	loginVK(email, password);
 
@@ -66,7 +68,9 @@ public class SeleniumParser {
         	System.out.println(profileInfo.toString());
         	try {
 				db.put(profileInfo);
-			} catch (Throwable e) {}
+			} catch (Throwable e) {
+				e.printStackTrace();
+			}
         	
         	finish = new Date();
         	long delta = finish.getTime() - start.getTime();
