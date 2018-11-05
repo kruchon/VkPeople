@@ -459,7 +459,7 @@ public class SeleniumParser {
     		profileInfo.setStatus(empty);
 		}
 		if (profileInfo.getFamilyStatus() == null) {
-    		profileInfo.setFamilyStatus(null);
+    		profileInfo.setFamilyStatus(empty);
 		}
 		if (profileInfo.getSite() == null) {
     		profileInfo.setSite(empty);
