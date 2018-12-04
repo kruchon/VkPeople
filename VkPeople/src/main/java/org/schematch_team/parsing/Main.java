@@ -14,15 +14,33 @@ public class Main {
 	
     private static final String path = "/opt/chromedriver";
     
-    private static final String email = "phone";
-    private static final String password = "pass";
+    private static final String email = "77478422345";
+    private static final String password = "hgvgU438JNjer;";
     
-    //513142927
-    private static final long firstID = 513142927;
-    private static final long lastID = 513142927;
+    private static final long firstID = 158_570;
+    private static final long lastID = 300_000;
 	
     public static void main(String[] args){
-        SeleniumParser seleniumParser = new SeleniumParser(path, email, password);
-        seleniumParser.parse(firstID,lastID);
+    	
+        //SeleniumParser seleniumParser = new SeleniumParser(path, email, password);
+        //seleniumParser.parse(firstID,lastID);
+    	ConnectionJDBC c;
+		try {
+		
+			
+			
+			c = new ConnectionJDBC();
+			System.out.println(c.getFriendPairs(100000).size());
+    	
+    	
+    	
+    	
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
+	
+	
+	
 }

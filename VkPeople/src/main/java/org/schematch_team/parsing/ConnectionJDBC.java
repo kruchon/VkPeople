@@ -1,6 +1,8 @@
 package org.schematch_team.parsing;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConnectionJDBC {
 	
@@ -116,5 +118,66 @@ public class ConnectionJDBC {
 		ps.executeUpdate();
 		connection.commit();
 		ps.close();
+	}
+
+	public List<Integer> getFriendsIds(Integer idint) throws SQLException{
+		
+		List<Integer> res = new ArrayList<>();
+		
+		PreparedStatement preparedStatement = connection.prepareStatement("select friends from vkpeople2 where idint = " + String.valueOf(idint));
+        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSetMetaData rsmd = resultSet.getMetaData();
+        
+        resultSet.next();
+        Array array = resultSet.getArray("friends");
+        String[] arr = null;
+        try {
+        	arr = (String[]) array.getArray();
+        } catch (Exception e){
+        }
+        if (arr == null) {
+        	return res;
+        }
+        
+        for (String a : arr) {
+        	if (a.contains("/id")) {
+        		try {
+        			int id = Integer.valueOf(a.substring(a.lastIndexOf('d') + 1).trim());
+        			res.add(id);
+        		} catch (Exception e) {
+        			
+        		}
+        	}
+        }
+        
+        return res;
+	}
+
+	public List<FriendPair> getFriendPairs(Integer idint) throws SQLException{
+		
+		List<FriendPair> result = new ArrayList<>();
+		
+		if (idint < 150_000) {
+			List<Integer> friendsIds = getFriendsIds(idint);
+			for(Integer friendId : friendsIds) {
+				result.add(new FriendPair(idint,friendId));
+				if (friendId < 150_000) {
+					List<Integer> friendsFridendsIds = getFriendsIds(friendId);
+					for(Integer friendFriendId : friendsFridendsIds) {
+						result.add(new FriendPair(friendId,friendFriendId));
+						if (friendFriendId < 150_000) {
+							List<Integer> friendsFriendFridendsIds = getFriendsIds(friendFriendId);
+							for(Integer friendFriendFriendId : friendsFriendFridendsIds) {
+								result.add(new FriendPair(friendFriendId,friendFriendFriendId));
+							}
+						}
+						
+					}
+				}
+			}
+		} 
+		
+		//System.out.println(result);
+		return result;
 	}
 }
