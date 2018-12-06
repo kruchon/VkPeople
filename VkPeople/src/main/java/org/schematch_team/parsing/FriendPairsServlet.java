@@ -26,20 +26,18 @@ public class FriendPairsServlet extends HttpServlet {
         Integer vkUserId = Integer.valueOf(req.getQueryString());
         List<FriendPair> friendPairs = Lists.newArrayList();
         ConnectionJDBC connectionJDBC = null;
-       // try {
-           // connectionJDBC = new ConnectionJDBC();
-            friendPairs = Lists.newArrayList(new FriendPair(1,2),
-                    new FriendPair(2,3),
-                    new FriendPair(1,3));//connectionJDBC.getFriendPairs(vkUserId);
-       // } catch (ClassNotFoundException | SQLException e) {
-       //     e.printStackTrace();
-       // } finally {
-       //     try {
-       //         connectionJDBC.close();
-       //     } catch (SQLException e) {
-       //         e.printStackTrace();
-       //     }
-       // }
+        try {
+            connectionJDBC = new ConnectionJDBC();
+            friendPairs = connectionJDBC.getFriendPairs(vkUserId);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connectionJDBC.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
         Set<Integer> ids = Sets.newHashSet();
         for (FriendPair friendPair : friendPairs){
