@@ -1,0 +1,63 @@
+<html>
+<head>
+    <title>Vk People</title>
+    <!-- подключаем необходимые js-файлы -->
+    <script src="/resources/jquery.min.js"></script>
+    <script src="/resources/arbor.js"></script>
+    <script src="/resources/arbor-tween.js"></script>
+    <script src="/resources/renderer.js"></script>
+    <script src="/resources/graphics.js"></script>
+    <script src="/resources/pairs.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" href="/graph">Friend pairs graph</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/smokers">Smokers</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/drunk">Drunk</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/institutes">Institutes</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/geography">Geography</a>
+    </li>
+</ul>
+
+<!-- здесь будет выведен граф -->
+<div class="container">
+    <table>
+        <tr>
+            <th>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Friends graph</div>
+                    <div class="panel-body">
+                        <canvas id="viewport" width="1000" height="700"></canvas>
+                    </div>
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <label for="user_id">User ID:</label>
+                    <input type="text" class="form-control form-control-lg" id="user_id">
+                </div>
+                <br>
+                <button type="button" onclick="getPairs()" class="btn btn-primary">Get Pairs</button>
+            </th>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

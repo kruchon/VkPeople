@@ -5,64 +5,64 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConnectionJDBC {
-	
+
 	private final Connection connection;
-	
+
 	public ConnectionJDBC() throws ClassNotFoundException, SQLException  {
-		    Class.forName("org.apache.phoenix.jdbc.PhoenixDriver");
-			connection =  DriverManager.getConnection("jdbc:phoenix:localhost:2181/hbase");
+		Class.forName("org.apache.phoenix.jdbc.PhoenixDriver");
+		connection =  DriverManager.getConnection("jdbc:phoenix:localhost:2181/hbase");
 	}
-	
+
 	public void put(ProfileInfo profileInfo) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(
 				"UPSERT INTO VKPEOPLE(" +
-					"id, " + 
-					"name, " + 
-					"status, " + 
-					"birthDate, " + 
-					"city, " + 
-					"familyStatus, " + 
-					"site, " + 
-					"homeCity, " + 
-					"languages, " + 
-					"grandPaAndMa, " + 
-					"parents, " + 
-					"brothersSisters, " + 
-					"children, " + 
-					"grandChildren, " + 
-					"mobilePhone, " + 
-					"secondPhone, " + 
-					"instagram, " + 
-					"twitter, " + 
-					"facebook, " + 
-					"workplace, " + 
-					"institutes, " + 
-					"faculties, " + 
-					"instituteDepartments, " + 
-					"instituteForm, " + 
-					"instituteStatus, " + 
-					"schools, " + 
-					"military, " + 
-					"politicPreferences, " + 
-					"worldView, " + 
-					"mainInLife, " + 
-					"mainInPeople, " + 
-					"relationToSmoke, " + 
-					"relationToDrink, " + 
-					"inspire, " + 
-					"activities, " + 
-					"interests, " + 
-					"favouriteMusic, " + 
-					"favouriteFilms, " + 
-					"favouriteShows, " + 
-					"favouriteBooks, " + 
-					"favouriteGames, " + 
-					"favouriteQuotes, " + 
-					"aboutMe, " + 
-					"friends, " + 
-					"groups, " + 
-					"favoritePages) " + 
-					"VALUES(" +
+						"id, " +
+						"name, " +
+						"status, " +
+						"birthDate, " +
+						"city, " +
+						"familyStatus, " +
+						"site, " +
+						"homeCity, " +
+						"languages, " +
+						"grandPaAndMa, " +
+						"parents, " +
+						"brothersSisters, " +
+						"children, " +
+						"grandChildren, " +
+						"mobilePhone, " +
+						"secondPhone, " +
+						"instagram, " +
+						"twitter, " +
+						"facebook, " +
+						"workplace, " +
+						"institutes, " +
+						"faculties, " +
+						"instituteDepartments, " +
+						"instituteForm, " +
+						"instituteStatus, " +
+						"schools, " +
+						"military, " +
+						"politicPreferences, " +
+						"worldView, " +
+						"mainInLife, " +
+						"mainInPeople, " +
+						"relationToSmoke, " +
+						"relationToDrink, " +
+						"inspire, " +
+						"activities, " +
+						"interests, " +
+						"favouriteMusic, " +
+						"favouriteFilms, " +
+						"favouriteShows, " +
+						"favouriteBooks, " +
+						"favouriteGames, " +
+						"favouriteQuotes, " +
+						"aboutMe, " +
+						"friends, " +
+						"groups, " +
+						"favoritePages) " +
+						"VALUES(" +
 						"?,?,?,?,?,?,?,?,?,?," +
 						"?,?,?,?,?,?,?,?,?,?," +
 						"?,?,?,?,?,?,?,?,?,?," +
@@ -121,42 +121,41 @@ public class ConnectionJDBC {
 	}
 
 	public List<Integer> getFriendsIds(Integer idint) throws SQLException{
-		
+
 		List<Integer> res = new ArrayList<>();
-		
+
 		PreparedStatement preparedStatement = connection.prepareStatement("select friends from vkpeople2 where idint = " + String.valueOf(idint));
-        ResultSet resultSet = preparedStatement.executeQuery();
-        ResultSetMetaData rsmd = resultSet.getMetaData();
-        
-        resultSet.next();
-        Array array = resultSet.getArray("friends");
-        String[] arr = null;
-        try {
-        	arr = (String[]) array.getArray();
-        } catch (Exception e){
-        }
-        if (arr == null) {
-        	return res;
-        }
-        
-        for (String a : arr) {
-        	if (a.contains("/id")) {
-        		try {
-        			int id = Integer.valueOf(a.substring(a.lastIndexOf('d') + 1).trim());
-        			res.add(id);
-        		} catch (Exception e) {
-        			
-        		}
-        	}
-        }
-        
-        return res;
+		ResultSet resultSet = preparedStatement.executeQuery();
+		ResultSetMetaData rsmd = resultSet.getMetaData();
+
+		resultSet.next();
+		Array array = resultSet.getArray("friends");
+		String[] arr = null;
+		try {
+			arr = (String[]) array.getArray();
+		} catch (Exception e){
+		}
+		if (arr == null) {
+			return res;
+		}
+
+		for (String a : arr) {
+			if (a.contains("/id")) {
+				try {
+					int id = Integer.valueOf(a.substring(a.lastIndexOf('d') + 1).trim());
+					res.add(id);
+				} catch (Exception e) {
+
+				}
+			}
+		}
+		return res;
 	}
 
 	public List<FriendPair> getFriendPairs(Integer idint) throws SQLException{
-		
+
 		List<FriendPair> result = new ArrayList<>();
-		
+
 		if (idint < 150_000) {
 			List<Integer> friendsIds = getFriendsIds(idint);
 			for(Integer friendId : friendsIds) {
@@ -171,13 +170,17 @@ public class ConnectionJDBC {
 								result.add(new FriendPair(friendFriendId,friendFriendFriendId));
 							}
 						}
-						
+
 					}
 				}
 			}
-		} 
-		
+		}
+
 		//System.out.println(result);
 		return result;
+	}
+
+	public void close() throws SQLException {
+		connection.close();
 	}
 }
