@@ -36,28 +36,38 @@
     </li>
 </ul>
 
-<!-- здесь будет выведен граф -->
-<div class="container">
-    <table>
-        <tr>
-            <th>
-                <div class="panel panel-default">
-                    <div class="panel-heading">Friends graph</div>
-                    <div class="panel-body">
-                        <canvas id="viewport" width="1000" height="700"></canvas>
+<table style="margin-left: 50px">
+    <tr>
+        <th>
+            <br>
+            <div class="form-group">
+                <div class="form-group row">
+                    <div class="col-xs-1">
+                        <h4> User ID: </h4>
+                    </div>
+                    <div class="col-xs-2">
+                        <input size="15" type="text" class="form-control" id="user_id">
+                    </div>
+                    <div class="col-xs-2">
+                        <button type="button" onclick="getPairs()" class="btn btn-primary">Get Pairs</button>
+                    </div>
+                    <div class="col-xs-2">
+                        <h4> Selected User: <a id="selected_user" target="_blank" href=""></a></h4>
                     </div>
                 </div>
-            </th>
-            <th>
-                <div class="form-group">
-                    <label for="user_id">User ID:</label>
-                    <input type="text" class="form-control form-control-lg" id="user_id">
+            </div>
+        </th>
+    </tr>
+    <tr>
+        <th>
+            <div class="panel panel-default">
+                <div class="panel-heading">Friends graph</div>
+                <div class="panel-body">
+                    <canvas id="viewport" width="1300" height="500"></canvas>
                 </div>
-                <br>
-                <button type="button" onclick="getPairs()" class="btn btn-primary">Get Pairs</button>
-            </th>
-        </tr>
-    </table>
-</div>
+            </div>
+        </th>
+    </tr>
+</table>
 </body>
 </html>

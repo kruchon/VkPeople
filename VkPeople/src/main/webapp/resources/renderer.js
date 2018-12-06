@@ -1,4 +1,3 @@
-var selectedId
 
 (function(){
   
@@ -133,8 +132,10 @@ var selectedId
             var pos = $(canvas).offset();
             _mouseP = arbor.Point(e.pageX-pos.left, e.pageY-pos.top)
             selected = nearest = dragged = particleSystem.nearest(_mouseP);
-			console.log(selected.node.data.label)
-			selectedId = selected.node.data.label
+			var selectedId = selected.node.data.label
+            var selectedUser = document.getElementById("selected_user");
+			selectedUser.href="https://www.vk.com/id" + selectedId;
+			selectedUser.innerText = selectedId.toString();
             if (dragged.node !== null) dragged.node.fixed = true
 
             $(canvas).bind('mousemove', handler.dragged)
